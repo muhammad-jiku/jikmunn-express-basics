@@ -1,9 +1,19 @@
 // dependencies
 const express = require('express');
-const app = express();
+const app = express(); // main app
 const PORT = process.env.PORT || 5001;
 
-app.get('/', (req, res) => {
+const adminRoute = express.Router(); // sub app
+adminRoute.get('/dashboard', (req, res) => {
+  console.log(req.baseUrl);
+  res.send('WELCOME to the Admin Dashboard!!');
+});
+
+//
+app.use('/admin', adminRoute);
+
+app.get('/home', (req, res) => {
+  console.log(req.baseUrl);
   res.send('Hello there! folks!!');
 });
 
