@@ -6,6 +6,11 @@ const app = express(); // main app
 const admin = express(); // sub app
 const PORT = process.env.PORT || 5001;
 
+admin.on('mount', (parent) => {
+  console.log('Admin Mounted');
+  console.log(parent); // refers to the parent app
+});
+
 admin.get('/dashboard', (req, res) => {
   console.log(admin.mountpath);
   res.send('Hello friends of admin!!');
