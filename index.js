@@ -3,15 +3,17 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-app.set('view engine', 'ejs');
-
 app.get('/', (req, res) => {
-  res.cookie('countryCode', 'BD');
+  res.redirect('/home');
   res.end();
 });
 
+app.get('/home', (req, res) => {
+  res.send('Bangladesh');
+});
+
 app.get('/about', (req, res) => {
-  res.cookie('country', 'bangladesh');
+  res.location('/home');
   res.end();
 });
 
