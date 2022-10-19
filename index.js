@@ -6,10 +6,12 @@ const express = require('express');
 const app = express(); // main app
 const PORT = process.env.PORT || 5001;
 
+app.set('view engine', 'ejs');
+
 app
   .route('/home')
   .get((req, res) => {
-    res.send('Hello there! folks this is get method!!');
+    res.render('pages/home');
   })
   .post((req, res) => {
     res.send('Hello there! folks this is post method!!');
