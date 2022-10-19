@@ -5,19 +5,15 @@ const PORT = process.env.PORT || 5001;
 
 const adminRoute = express.Router(); // sub app
 adminRoute.get('/dashboard', (req, res) => {
-  console.log(req.path);
-  console.log(req.hostname);
-  console.log(req.protocol);
   res.send('WELCOME to the Admin Dashboard!!');
 });
 
 //
 app.use('/admin', adminRoute);
 
-app.get('/home', (req, res) => {
-  console.log(req.path);
-  console.log(req.hostname);
-  console.log(req.protocol);
+app.get('/user/:id', (req, res) => {
+  console.log(req.params);
+  console.log(req.params.id);
   res.send('Hello there! folks!!');
 });
 
