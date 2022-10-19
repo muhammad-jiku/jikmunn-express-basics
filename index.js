@@ -1,5 +1,6 @@
 // dependencies
 const express = require('express');
+const handler = require('./handler');
 // const cookieParser = require('cookie-parser');
 
 const app = express(); // main app
@@ -15,13 +16,10 @@ app.use(express.json());
 // app.use(cookieParser());
 app.use('/admin', adminRoute);
 
-app.get('/user/:id', (req, res) => {
-  console.log(req.secure);
-  res.send('Kire, Ki obostha??');
-});
+app.get('/user/:id', handler);
 
 app.post('/user', (req, res) => {
-  console.log(req.body);
+  console.log(req.route);
   res.send(req.body);
 });
 
