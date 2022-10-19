@@ -9,12 +9,17 @@ adminRoute.get('/dashboard', (req, res) => {
 });
 
 //
+app.use(express.json());
 app.use('/admin', adminRoute);
 
 app.get('/user/:id', (req, res) => {
-  console.log(req.params);
-  console.log(req.params.id);
-  res.send('Hello there! folks!!');
+  console.log(req.query);
+  res.send(req.query);
+});
+
+app.post('/user', (req, res) => {
+  console.log(req.body);
+  res.send(req.body);
 });
 
 app.listen(PORT, () => {
