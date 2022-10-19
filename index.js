@@ -13,7 +13,8 @@ app.get('/home', (req, res) => {
 });
 
 app.get('/about', (req, res) => {
-  res.location('/home');
+  res.set('Title', 'JIKMUNN');
+  console.log(res.get('Title'));
   res.end();
 });
 
