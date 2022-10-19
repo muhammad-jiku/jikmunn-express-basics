@@ -12,6 +12,7 @@ admin.get('/dashboard', (req, res) => {
 });
 
 app.get('/', (req, res) => {
+  console.log(app.mountpath);
   res.send('Hello there! folks!!');
 });
 
