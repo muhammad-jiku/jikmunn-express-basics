@@ -1,6 +1,6 @@
 // dependencies
 const express = require('express');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
 
 const app = express(); // main app
 const PORT = process.env.PORT || 5001;
@@ -12,12 +12,12 @@ adminRoute.get('/dashboard', (req, res) => {
 
 //
 app.use(express.json());
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use('/admin', adminRoute);
 
 app.get('/user/:id', (req, res) => {
-  console.log(req.cookies);
-  res.send(req.cookies);
+  console.log(req.secure);
+  res.send('Kire, Ki obostha??');
 });
 
 app.post('/user', (req, res) => {
