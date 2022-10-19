@@ -5,14 +5,21 @@ const express = require('express');
 const app = express(); // main app
 const PORT = process.env.PORT || 5001;
 
-app.enable('case sensitive routing');
-app.disable('case sensitive routing');
+app.use(express.json());
 
-app.all('/home', (req, res) => {
-  res.send('Hello there! folks!!');
+app.param('id', (req, res, next, id) => {
+  const user = {
+    id,
+    name: 'Muhammad Azizul Hoque Jiku',
+  };
+  req.userDetails = user;
+  next();
 });
 
-app.use(express());
+app.get('/user/:id', (req, res) => {
+  console.log(req.userDetails);
+  res.send('Hello there! folks!!');
+});
 
 app.listen(PORT, () => {
   console.log(`server running at http://localhost:${PORT}`);
