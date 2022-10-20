@@ -1,17 +1,24 @@
 // dependencies
 const express = require('express');
+const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-app.get('/', (req, res, next) => {
-  for (let i = 0; i <= 10; i++) {
-    if (i === 5) {
-      next('There was an error!!');
-    } else {
-      res.write(`${i}`);
-    }
-  }
-  res.end();
+app.get('/', [
+  (req, res, next) => {
+    fs.readFile('/file-doesnot-exist', 'utf-8', (err, data) => {
+      console.log(data);
+      next(err);
+    });
+  },
+  (req, res, next) => {
+    console.log(data.property);
+  },
+]);
+
+app.use((req, res, next) => {
+  console.log('I am not called yet!');
+  next();
 });
 
 // 404 error handling
