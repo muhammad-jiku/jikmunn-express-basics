@@ -2,15 +2,17 @@
 const express = require('express');
 const publicRouter = express.Router();
 
-const log = (req, res, next) => {
-  console.log('this is simple log function');
+publicRouter.param('user', (req, res, next, id) => {
+  req.user = id === '1' ? 'Admin' : 'Anonymous';
   next();
-};
-
-publicRouter.all('*', log);
+});
 
 publicRouter.get('/', (req, res) => {
   res.send('Hello there! folks!!');
+});
+
+publicRouter.get('/:user', (req, res) => {
+  res.send(`Kire ki obostha! ${req.user}`);
 });
 
 module.exports = publicRouter;
