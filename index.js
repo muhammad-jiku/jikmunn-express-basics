@@ -1,5 +1,7 @@
 // dependencies
 const express = require('express');
+const cookieParser = require('cookie-parser');
+
 const app = express(); // main app
 const adminRouter = express.Router(); // sub app
 
@@ -14,6 +16,13 @@ const logger = (req, res, next) => {
 };
 
 // middleware
+// built-in middleware
+app.use(express.json());
+
+// third party middleware
+app.use(cookieParser());
+
+// custom middleware
 app.use('/admin', adminRouter);
 adminRouter.use(logger);
 
