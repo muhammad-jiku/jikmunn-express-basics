@@ -1,24 +1,13 @@
 // dependencies
 const express = require('express');
+const adminRouter = require('./adminRouter');
 const publicRouter = express.Router();
 
-publicRouter
-  .route('/user')
-  .all((req, res, next) => {
-    console.log('I am logging into the site');
-    next();
-  })
-  .get((req, res) => {
-    res.send('GET');
-  })
-  .post((req, res) => {
-    res.send('POST');
-  })
-  .put((req, res) => {
-    res.send('PUT');
-  })
-  .delete((req, res) => {
-    res.send('DELETE');
-  });
+publicRouter.use((req, res, next) => {
+  console.log('Hola, kon bola??');
+  next();
+});
+
+publicRouter.use(adminRouter);
 
 module.exports = publicRouter;
