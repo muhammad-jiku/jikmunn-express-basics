@@ -6,14 +6,20 @@ const app = express(); // main app
 const adminRouter = express.Router(); // sub app
 
 const PORT = process.env.PORT || 5001;
-const logger = (req, res, next) => {
-  console.log(
-    `${new Date(Date.now()).toLocaleString()} - ${req.method} - ${
-      req.originalUrl
-    } - ${req.protocol} - ${req.ip}`
-  );
-  throw new Error('There is an error!!');
-};
+
+const loggerWrapper = (options) =>
+  function (req, res, next) {
+    if (options.log) {
+      console.log(
+        `${new Date(Date.now()).toLocaleString()} - ${req.method} - ${
+          req.originalUrl
+        } - ${req.protocol} - ${req.ip}`
+      );
+      next();
+    } else {
+      throw new Error('There is an error!!');
+    }
+  };
 
 const errorMiddleware = (err, req, res, next) => {
   console.log(err);
@@ -30,7 +36,8 @@ app.use(cookieParser());
 
 // custom middleware
 app.use('/admin', adminRouter);
-adminRouter.use(logger);
+adminRouter.use(loggerWrapper({ log: true }));
+// adminRouter.use(loggerWrapper({ log: false }));
 adminRouter.use(errorMiddleware);
 
 app.get('/', (req, res) => {
