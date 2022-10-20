@@ -12,7 +12,13 @@ const logger = (req, res, next) => {
       req.originalUrl
     } - ${req.protocol} - ${req.ip}`
   );
-  next();
+  throw new Error('There is an error!!');
+};
+
+const errorMiddleware = (err, req, res, next) => {
+  console.log(err);
+  console.log(err.message);
+  res.status(500).send('Server side error found!');
 };
 
 // middleware
@@ -25,6 +31,7 @@ app.use(cookieParser());
 // custom middleware
 app.use('/admin', adminRouter);
 adminRouter.use(logger);
+adminRouter.use(errorMiddleware);
 
 app.get('/', (req, res) => {
   res.send('Hello there! folks!!');
