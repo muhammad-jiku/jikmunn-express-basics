@@ -16,16 +16,9 @@ app.get('/', (req, res) => {
   res.send('Hello there! folks!!');
 });
 
-app.post(
-  '/',
-  upload.fields([
-    { name: 'avatar', maxCount: 01 },
-    { name: 'gallery', maxCount: 03 },
-  ]),
-  (req, res) => {
-    res.send('Hola, This is US!!');
-  }
-);
+app.post('/', upload.none(), (req, res) => {
+  res.send('Hola, This is US!!');
+});
 
 app.listen(PORT, () => {
   console.log(`server running at http://localhost:${PORT}`);
