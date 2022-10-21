@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
   res.send('Hello there! folks!!');
 });
 
-app.post('/', upload.single('avatar'), (req, res) => {
+app.post('/', upload.array('avatar', 5), (req, res) => {
   res.send('Hola, This is US!!');
 });
 
