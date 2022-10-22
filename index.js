@@ -75,6 +75,7 @@ app.post(
     },
   ]),
   (req, res, next) => {
+    console.log(req.files);
     res.send('success');
   }
 );
