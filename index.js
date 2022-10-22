@@ -1,6 +1,7 @@
 // dependencies
 const express = require('express');
 const multer = require('multer');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -8,8 +9,28 @@ const PORT = process.env.PORT || 5001;
 // file upload folders
 const UPLOADS_FOLDER = './uploads/';
 
+// define the storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, UPLOADS_FOLDER);
+  },
+  filename: (req, file, cb) => {
+    const fileExt = path.extname(file.originalname);
+    const fileName =
+      file.originalname
+        .replace(fileExt, '')
+        .toLowerCase()
+        .split(' ')
+        .join('-') +
+      '-' +
+      Date.now();
+
+    cb(null, fileName + fileExt);
+  },
+});
+
 let upload = multer({
-  dest: UPLOADS_FOLDER,
+  storage: storage,
   limits: {
     fileSize: 1000000, // 1MB
   },
